@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    
+   <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'listperso/css/bootstrap.min.css' %}" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'listperso/css/business-casual.css' %}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    {% block head-css %}
+
+    {% endblock %}
+    
+    {% block head-javascript %}{% endblock %}
+    <title>{% block title %}GestPerso{%endblock %}</title>
+</head>
+
+<body>
+    {% if user.is_authenticated %}
+    <div class="photogauche"><img src="../../static/listperso/img/mobilelogologin.png" width="150" height="100" align="top" /></div>
+    <div class="brand">GESTION PERSONNEL</div>
+
+    <!-- Navigation -->
+    <nav role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- navbar-brand is hidden on larger screens, but visible when the menu is collapsed -->
+                <a class="navbar-brand" href="{% url 'listepersonnel' %}">Gestion du Personnel</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="background-color: rgba(56, 58, 58, 0.2);">
+                <ul class="nav navbar-nav" >
+                    <li>
+                        <a href="{% url 'listepersonnel' %}">Personnel</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Compte <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><span class="black-text name"><b>{{user.first_name}}-{{user.last_name}}</b></span></li>
+                            <li><span class="black-text email"><b>{{user.email}}</b></span></li>
+                            <li class="divider"></li>
+                            <li><a href="{% url 'logout' %}">Se deconnecter</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{% url 'change_password' %}">Changer de mot de passe</a></li>
+                        </ul>
+                      </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <div class="container content bg-secondary">
+
+        
+
+        <div role="main" style="flex-grow:1;">
+              <div id="summary">
+                  <div class="page-header">
+                      {% block page-header %}{% endblock %}
+                  </div>
+              </div>
+              {% block content %}
+              {% endblock %}
+          </div>
+
+    </div>
+    <!-- /.container -->
+
+    <footer>
+        <div>
+            <div class="row">
+                <div class="row">
+                    <h1><span id="fl"></span></h1>
+                  </div>
+                <div class="col-lg-12 text-center" style="background-color: rgba(56, 58, 58, 0.2);">
+                    <span id="fl"> <p>Copyright &copy; Cour des Comptes 2021</p></span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    {% endif %}
+    <!-- jQuery -->
+    <script src="{% static 'listperso/js/jquery.js' %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'listperso/js/bootstrap.min.js' %}"></script>
+    {% block foot-javascript %}
+ 
+    {% endblock %}  
+    {% block datatablescript %}
+ 
+    {% endblock %}  
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
+    <style>
+         #datatable { table-layout: fixed; word-wrap: break-word; } 
+    </style>
+</body>
+
+</html>
